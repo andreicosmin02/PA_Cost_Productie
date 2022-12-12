@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538013814219",
+    "project_id": "pa-cost-productie",
+    "storage_bucket": "pa-cost-productie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538013814219:android:78d9717777a660eea3fa4e",
+        "android_client_info": {
+          "package_name": "com.example.pacostproductie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538013814219-q128ck1h33irceihanqv3us3kfhq4kcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACC8olOGY2NQdj57Y91d-RrMgB643rS2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538013814219-q128ck1h33irceihanqv3us3kfhq4kcs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
