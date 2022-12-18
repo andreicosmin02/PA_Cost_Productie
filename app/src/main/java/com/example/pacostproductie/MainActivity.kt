@@ -1,6 +1,7 @@
 package com.example.pacostproductie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pacostproductie.databinding.ActivityMainBinding
+import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +44,16 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // UN CANAT GEAM ROTOBASCULANT EXEMPLU
+//        val unCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime = 3000.0, lungime = 4000.0)
+//
+//        unCanatGeamRotobasculant.init {
+//            val toc = unCanatGeamRotobasculant.getToc()
+//            val zf = unCanatGeamRotobasculant.getZF()
+//            val sticla = unCanatGeamRotobasculant.getSticla()
+//        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
