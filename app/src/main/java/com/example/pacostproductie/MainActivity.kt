@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pacostproductie.databinding.ActivityMainBinding
 import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
+import com.example.pacostproductie.piese.DouaCanateFix
 
 class MainActivity : AppCompatActivity() {
 
