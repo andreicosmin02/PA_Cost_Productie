@@ -22,4 +22,11 @@
         android:name="com.example.pacostproductie.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_uncanatrotobasculant"
+        android:name="com.example.pacostproductie.ui.uncanatrotobasculant.UnCanatRotobasculantFragment"
+        android:label="@string/un_canat_geam_rotobasculant"
+        tools:layout="@layout/fragment_un_canat_rotobasculant"
+        />
 </navigation>
