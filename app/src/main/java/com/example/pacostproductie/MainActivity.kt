@@ -13,8 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pacostproductie.databinding.ActivityMainBinding
-import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
-import com.example.pacostproductie.piese.DouaCanateFix
+import com.example.pacostproductie.piese.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,13 +47,36 @@ class MainActivity : AppCompatActivity() {
 
         // UN CANAT GEAM ROTOBASCULANT EXEMPLU
 //        val unCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime = 3000.0, lungime = 4000.0)
-//
 //        unCanatGeamRotobasculant.init {
 //            val toc = unCanatGeamRotobasculant.getToc()
 //            val zf = unCanatGeamRotobasculant.getZF()
 //            val sticla = unCanatGeamRotobasculant.getSticla()
 //        }
-
+//
+//        val douaCanateFix = DouaCanateFix(3000.0, 4000.0)
+//        douaCanateFix.init {
+//            val toc = douaCanateFix.getToc()
+//        }
+        val douaCanateRotativInversor = DouaCanateRotativInversor(3000.0, 4000.0)
+        douaCanateRotativInversor.init {
+            val toc = douaCanateRotativInversor.getToc()
+        }
+//        val douaCanateRotobasculantPlusRotativInversor = DouaCanateRotobasculantPlusRotativInversor(3000.0, 4000.0)
+//        douaCanateRotobasculantPlusRotativInversor.init {
+//            val toc = douaCanateRotobasculantPlusRotativInversor.getToc()
+//        }
+//        val douaCanateFixPlusRotobasculant = DouaCanateFixPlusRotobasculant(3000.0, 4000.0)
+//        douaCanateFixPlusRotobasculant.init {
+//            val toc = douaCanateFixPlusRotobasculant.getToc()
+//        }
+//        val treiCanateFix = TreiCanateFix(3000.0, 4000.0)
+//        treiCanateFix.init {
+//            val toc = treiCanateFix.getToc()
+//        }
+//        val treiCanateFixPlusRotobasculant = TreiCanateFixPlusRotobasculant(3000.0, 4000.0)
+//        treiCanateFixPlusRotobasculant.init {
+//            val toc = treiCanateFixPlusRotobasculant.getToc()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

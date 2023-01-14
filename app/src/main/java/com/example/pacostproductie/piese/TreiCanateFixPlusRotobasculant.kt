@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class treiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
+class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
     val database = FirebaseDatabase.getInstance()
     val ref = database.getReference("Piese/treiCanateFixPlusRotobasculant")
 

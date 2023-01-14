@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class douaCanateRotobasculantPlusRotativInversor(var latime: Double, var lungime: Double) {
+class DouaCanateRotobasculantPlusRotativInversor(var latime: Double, var lungime: Double) {
     val database = FirebaseDatabase.getInstance()
     val ref = database.getReference("Piese/douaCanateRotobasculantPlusRotativInversor")
 
@@ -29,8 +29,8 @@ class douaCanateRotobasculantPlusRotativInversor(var latime: Double, var lungime
                 solid700DifRamaZet = dataSnapshot.child("solid700DifRamaZet").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
                 solid700DifAdaosZetInvLaMijloc = dataSnapshot.child("solid700DifAdaosZetInvLaMijloc").getValue(Double::class.java)!!
-                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
-                inversor = dataSnapshot.child("inversor").getValue(Double::class.java)!!
+//                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
+//                inversor = dataSnapshot.child("inversor").getValue(Double::class.java)!!
 
 
                 Log.d("douaCanateRotobasculantPlusRotativInversor", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")

@@ -23,6 +23,12 @@ class UnCanatGeamRotobasculant(var latime: Double, var lungime: Double) {
                 solid700DifRamaSticla = dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
 
+                Log.d("UnCanatGeamRotobasculant", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")
+                Log.d("UnCanatGeamRotobasculant", "solid700DifRamaZet: $solid700DifRamaZet")
+                Log.d("UnCanatGeamRotobasculant", "feronerieRotobasculant: $feronerieRotobasculant")
+                Log.d("UnCanatGeamRotobasculant", "solid700DifRamaSticla: $solid700DifRamaSticla")
+                Log.d("UnCanatGeamRotobasculant", "solid700DifZetSticla: $solid700DifZetSticla")
+
                 callback()
             }
 

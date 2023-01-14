@@ -1,13 +1,12 @@
 package com.example.pacostproductie.piese
 
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class douaCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
+class DouaCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
     val database = FirebaseDatabase.getInstance()
     val ref = database.getReference("Piese/douaCanateFixPlusRotobasculant")
 
@@ -29,7 +28,7 @@ class douaCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
                 solid700DifAdaosZetMontantLaMijloc = dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc").getValue(Double::class.java)!!
                 solid700DifRamaSticla = dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
-                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
+//                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
 
 
                 Log.d("douaCanateFixPlusRotobasculant", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")
