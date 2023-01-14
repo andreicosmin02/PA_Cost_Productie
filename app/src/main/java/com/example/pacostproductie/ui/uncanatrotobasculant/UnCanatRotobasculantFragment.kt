@@ -5,7 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
+import com.example.pacostproductie.databinding.ActivityMainBinding
+import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
+import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
+import com.example.pacostproductie.viewmodel.PriceViewModel
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -21,6 +31,11 @@ class UnCanatRotobasculantFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var latime: Double = 0.0
+    private var lungime: Double = 0.0
+
+    private lateinit var binding: FragmentUnCanatRotobasculantBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,7 +47,113 @@ class UnCanatRotobasculantFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_un_canat_rotobasculant, container, false)
+        binding = FragmentUnCanatRotobasculantBinding.inflate(layoutInflater)
+
+
+
+        if (savedInstanceState != null) {
+            latime = savedInstanceState.getDouble("latime")
+            lungime = savedInstanceState.getDouble("lungime")
+            binding.etUcrLatime.setText(latime.toString())
+            binding.etUcrLungime.setText(lungime.toString())
+            val unCanatGeamRotobasculant: UnCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime, lungime)
+            unCanatGeamRotobasculant.init {
+                val toc = BigDecimal(unCanatGeamRotobasculant.getToc() / 1000)
+                    .setScale(2, RoundingMode.HALF_EVEN)
+                val zf = BigDecimal(unCanatGeamRotobasculant.getZF() / 1000)
+                    .setScale(2, RoundingMode.HALF_EVEN)
+                val sticla = BigDecimal(unCanatGeamRotobasculant.getSticla() / 100000)
+                    .setScale(2, RoundingMode.HALF_EVEN)
+
+
+                val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
+                val model: PriceViewModel by viewModels()
+                model.priceUnCanatGeamRotobasculant.value = finalPrice
+
+                binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+            }
+        } else {
+            binding.bUcrCalculeaza.setOnClickListener {
+                if (
+                    binding.etUcrLatime.text.isEmpty() ||
+                    binding.etUcrLungime.text.isEmpty() ||
+                    binding.rgUcrCuloare.checkedRadioButtonId == -1 ||
+                    binding.rgUcrSticla.checkedRadioButtonId == -1
+                ) {
+                    Toast.makeText(context, "Please fill in all input fields", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    latime = binding.etUcrLatime.text.toString().toDouble()
+                    lungime = binding.etUcrLungime.text.toString().toDouble()
+
+                    val unCanatGeamRotobasculant: UnCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime, lungime)
+
+                    unCanatGeamRotobasculant.init {
+                        val toc = BigDecimal(unCanatGeamRotobasculant.getToc() / 1000)
+                            .setScale(2, RoundingMode.HALF_EVEN)
+                        val zf = BigDecimal(unCanatGeamRotobasculant.getZF() / 1000)
+                            .setScale(2, RoundingMode.HALF_EVEN)
+                        val sticla = BigDecimal(unCanatGeamRotobasculant.getSticla() / 100000)
+                            .setScale(2, RoundingMode.HALF_EVEN)
+
+
+
+                        val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
+                        val model: PriceViewModel by viewModels()
+                        model.priceUnCanatGeamRotobasculant.value = finalPrice
+
+                        binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+                    }
+                }
+
+            }
+        }
+
+
+
+        return binding.root
+    }
+
+    fun calculatePrice(toc: Double, zf: Double, sticla: Double): Double {
+        val radioGroup: RadioGroup = binding.rgUcrCuloare
+        val selectedId = radioGroup.checkedRadioButtonId
+        var priceToc = 0.0
+        var priceZf = 0.0
+
+        when (selectedId) {
+            R.id.rb_ucr_alb -> {
+                priceToc = toc * 34
+                priceZf = zf * 32
+            }
+            R.id.rb_ucr_color -> {
+                priceToc = toc * 51
+                priceZf = zf * 42
+            }
+            R.id.rb_ucr_alb_color -> {
+                priceToc = toc * 40
+                priceZf = zf * 40
+            }
+        }
+
+        val radioGroupSticla: RadioGroup = binding.rgUcrSticla
+        val selectedIdSticla = radioGroupSticla.checkedRadioButtonId
+        var priceSticla = 0.0
+        when (selectedIdSticla) {
+            R.id.rb_ucr_f4_4s -> {
+                priceSticla = sticla * 220
+            }
+            R.id.rb_ucr_f4_crossfield -> {
+                priceSticla = sticla * 295
+            }
+        }
+
+        return priceToc + priceZf + priceSticla
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putDouble("latime", latime)
+        outState.putDouble("lungime", lungime)
     }
 
     companion object {
