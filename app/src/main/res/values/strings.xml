@@ -13,4 +13,10 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="un_canat_geam_rotobasculant">Un Canat Geam Rotobasculant</string>
+    <string name="doua_canate_fix">Doua Canate Fix</string>
+    <string name="doua_canate_fix_plus_inversor">Doua Canate Fix Plus Inversor</string>
+    <string name="doua_canate_fix_plus_rotobasculant">Doua Canate Fix Plus Rotobasculant</string>
+    <string name="doua_canate_rotativ_inversor">Doua Canate Rotativ Inversor</string>
+    <string name="doua_canate_rotobasculant_plus_rotativ_inversor">Doua Canate Rotobasculant Plus Rotativ Inversor</string>
+    <string name="trei_canate_fix">Trei Canate Fix</string>
 </resources>

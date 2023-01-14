@@ -29,4 +29,39 @@
         android:label="@string/un_canat_geam_rotobasculant"
         tools:layout="@layout/fragment_un_canat_rotobasculant"
         />
+    <fragment
+        android:id="@+id/nav_douacanatefix"
+        android:name="com.example.pacostproductie.ui.douacanatefix.DouaCanateFixFragment"
+        android:label="@string/doua_canate_fix"
+        tools:layout="@layout/fragment_doua_canate_fix" />
+
+    <fragment
+        android:id="@+id/nav_douacanatefixplusrotobasculant"
+        android:name="com.example.pacostproductie.ui.douacanatefixplusrotobasculant.DouaCanateFixPlusRotobasculantFragment"
+        android:label="@string/doua_canate_fix_plus_rotobasculant"
+        tools:layout="@layout/fragment_doua_canate_fix_plus_rotobasculant" />
+
+    <fragment
+        android:id="@+id/nav_douacanaterotativinversor"
+        android:name="com.example.pacostproductie.ui.douacanaterotativinversor.DouaCanateRotativInversorFragment"
+        android:label="@string/doua_canate_rotativ_inversor"
+        tools:layout="@layout/fragment_doua_canate_rotativ_inversor" />
+
+    <fragment
+        android:id="@+id/nav_douacanaterotobasculantplusrotativinversor"
+        android:name="com.example.pacostproductie.ui.douacanaterotobasculantplusrotativinversor.DouaCanateRotobasculantPlusRotativInversorFragment"
+        android:label="@string/doua_canate_rotobasculant_plus_rotativ_inversor"
+        tools:layout="@layout/fragment_doua_canate_rotobasculant_plus_rotativ_inversor" />
+
+    <fragment
+        android:id="@+id/nav_treicanatefix"
+        android:name="com.example.pacostproductie.ui.treicanatefix.TreiCanateFixFragment"
+        android:label="@string/trei_canate_fix"
+        tools:layout="@layout/fragment_trei_canate_fix" />
+
+    <fragment
+        android:id="@+id/nav_treicanatefixplusrotobasculant"
+        android:name="com.example.pacostproductie.ui.treicanatefixplusrotobasculant.TreiCanateFixPlusRotobasculantFragment"
+        android:label="@string/trei_canate_fix"
+        tools:layout="@layout/fragment_trei_canate_fix_plus_rotobasculant" />
 </navigation>

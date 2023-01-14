@@ -22,5 +22,39 @@
             android:icon="@drawable/ic_baseline_window_24"
             android:title="@string/un_canat_geam_rotobasculant"
             />
+        <item
+            android:id="@+id/nav_douacanatefix"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="@string/doua_canate_fix"
+            />
+        <item
+            android:id="@+id/nav_douacanatefixplusrotobasculant"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="@string/doua_canate_fix_plus_rotobasculant"
+            />
+
+        <item
+            android:id="@+id/nav_douacanaterotativinversor"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="@string/doua_canate_rotativ_inversor"
+            />
+
+        <item
+            android:id="@+id/nav_douacanaterotobasculantplusrotativinversor"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="@string/doua_canate_rotobasculant_plus_rotativ_inversor"
+            />
+
+        <item
+            android:id="@+id/nav_treicanatefix"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="@string/trei_canate_fix"
+            />
+
+        <item
+            android:id="@+id/nav_treicanatefixplusrotobasculant"
+            android:icon="@drawable/ic_baseline_window_24"
+            android:title="Trei Canate Fix Plus Rotobasculant"
+            />
     </group>
 </menu>
