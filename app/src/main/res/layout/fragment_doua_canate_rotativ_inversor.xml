@@ -135,7 +135,7 @@
 
 
             <Button
-                android:id="@+id/b__calculeaza"
+                android:id="@+id/b_dcri_calculeaza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Calculeaza" />
