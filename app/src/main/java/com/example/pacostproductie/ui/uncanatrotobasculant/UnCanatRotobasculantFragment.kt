@@ -2,6 +2,7 @@ package com.example.pacostproductie.ui.uncanatrotobasculant
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,74 +45,60 @@ class UnCanatRotobasculantFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentUnCanatRotobasculantBinding.inflate(layoutInflater)
-
-
 
         if (savedInstanceState != null) {
             latime = savedInstanceState.getDouble("latime")
             lungime = savedInstanceState.getDouble("lungime")
+            binding.rgUcrCuloare.check(savedInstanceState.getInt("culoareId"))
+            binding.rgUcrSticla.check(savedInstanceState.getInt("sticlaId"))
+
             binding.etUcrLatime.setText(latime.toString())
             binding.etUcrLungime.setText(lungime.toString())
-            val unCanatGeamRotobasculant: UnCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime, lungime)
-            unCanatGeamRotobasculant.init {
-                val toc = BigDecimal(unCanatGeamRotobasculant.getToc() / 1000)
-                    .setScale(2, RoundingMode.HALF_EVEN)
-                val zf = BigDecimal(unCanatGeamRotobasculant.getZF() / 1000)
-                    .setScale(2, RoundingMode.HALF_EVEN)
-                val sticla = BigDecimal(unCanatGeamRotobasculant.getSticla() / 100000)
-                    .setScale(2, RoundingMode.HALF_EVEN)
-
-
-                val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
-                val model: PriceViewModel by viewModels()
-                model.priceUnCanatGeamRotobasculant.value = finalPrice
-
-                binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+            if (
+                !binding.etUcrLatime.text.isEmpty() &&
+                !binding.etUcrLungime.text.isEmpty() &&
+                binding.rgUcrCuloare.checkedRadioButtonId != -1 &&
+                binding.rgUcrSticla.checkedRadioButtonId != -1
+            ) {
+                calculateOutputValues()
             }
-        } else {
-            binding.bUcrCalculeaza.setOnClickListener {
-                if (
-                    binding.etUcrLatime.text.isEmpty() ||
-                    binding.etUcrLungime.text.isEmpty() ||
-                    binding.rgUcrCuloare.checkedRadioButtonId == -1 ||
-                    binding.rgUcrSticla.checkedRadioButtonId == -1
-                ) {
+        }
+        binding.bUcrCalculeaza.setOnClickListener {
+            if (binding.etUcrLatime.text.isEmpty() || binding.etUcrLungime.text.isEmpty() || binding.rgUcrCuloare.checkedRadioButtonId == -1 || binding.rgUcrSticla.checkedRadioButtonId == -1) {
+                if (context != null) {
                     Toast.makeText(context, "Please fill in all input fields", Toast.LENGTH_SHORT)
                         .show()
-                } else {
-                    latime = binding.etUcrLatime.text.toString().toDouble()
-                    lungime = binding.etUcrLungime.text.toString().toDouble()
-
-                    val unCanatGeamRotobasculant: UnCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime, lungime)
-
-                    unCanatGeamRotobasculant.init {
-                        val toc = BigDecimal(unCanatGeamRotobasculant.getToc() / 1000)
-                            .setScale(2, RoundingMode.HALF_EVEN)
-                        val zf = BigDecimal(unCanatGeamRotobasculant.getZF() / 1000)
-                            .setScale(2, RoundingMode.HALF_EVEN)
-                        val sticla = BigDecimal(unCanatGeamRotobasculant.getSticla() / 100000)
-                            .setScale(2, RoundingMode.HALF_EVEN)
-
-
-
-                        val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
-                        val model: PriceViewModel by viewModels()
-                        model.priceUnCanatGeamRotobasculant.value = finalPrice
-
-                        binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
-                    }
                 }
-
+            } else {
+                latime = binding.etUcrLatime.text.toString().toDouble()
+                lungime = binding.etUcrLungime.text.toString().toDouble()
+                calculateOutputValues()
             }
         }
 
-
-
         return binding.root
+    }
+
+    private fun calculateOutputValues() {
+        val unCanatGeamRotobasculant = UnCanatGeamRotobasculant(latime, lungime)
+        unCanatGeamRotobasculant.init {
+            val toc = BigDecimal(unCanatGeamRotobasculant.getToc() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val zf = BigDecimal(unCanatGeamRotobasculant.getZF() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val sticla = BigDecimal(unCanatGeamRotobasculant.getSticla() / 100000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+
+            val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
+            val model: PriceViewModel by viewModels()
+            model.priceUnCanatGeamRotobasculant.value = finalPrice
+
+            binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+            Log.d("PriceUnCanat", "Un canat = $finalPrice")
+        }
     }
 
     fun calculatePrice(toc: Double, zf: Double, sticla: Double): Double {
@@ -154,6 +141,8 @@ class UnCanatRotobasculantFragment : Fragment() {
         super.onSaveInstanceState(outState)
         outState.putDouble("latime", latime)
         outState.putDouble("lungime", lungime)
+        outState.putInt("culoareId", binding.rgUcrCuloare.checkedRadioButtonId)
+        outState.putInt("sticlaId", binding.rgUcrSticla.checkedRadioButtonId)
     }
 
     companion object {

@@ -9,7 +9,7 @@
         android:id="@+id/douacanateRotobasculantRotativInversorTV"
         android:layout_width="173dp"
         android:layout_height="173dp"
-        android:text="Io imi bag pula nu mai scriu tot textul ala o data"
+        android:text="doua canante rotobasculant plus rotativ insersor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
