@@ -2,10 +2,22 @@ package com.example.pacostproductie.ui.treicanatefixplusrotobasculant
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
+import com.example.pacostproductie.databinding.FragmentTreiCanateFixBinding
+import com.example.pacostproductie.databinding.FragmentTreiCanateFixPlusRotobasculantBinding
+import com.example.pacostproductie.piese.TreiCanateFix
+import com.example.pacostproductie.piese.TreiCanateFixPlusRotobasculant
+import com.example.pacostproductie.viewmodel.PriceViewModel
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -21,6 +33,11 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var latime: Double = 0.0
+    private var lungime: Double = 0.0
+
+    private lateinit var binding: FragmentTreiCanateFixPlusRotobasculantBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,7 +49,107 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trei_canate_fix_plus_rotobasculant, container, false)
+        binding = FragmentTreiCanateFixPlusRotobasculantBinding.inflate(layoutInflater)
+
+        if (savedInstanceState != null) {
+            latime = savedInstanceState.getDouble("latime")
+            lungime = savedInstanceState.getDouble("lungime")
+            binding.rgTcfprCuloare.check(savedInstanceState.getInt("culoareId"))
+            binding.rgTcfprSticla.check(savedInstanceState.getInt("sticlaId"))
+
+            binding.etTcfprLatime.setText(latime.toString())
+            binding.etTcfprLungime.setText(lungime.toString())
+            if (
+                !binding.etTcfprLatime.text.isEmpty() &&
+                !binding.etTcfprLungime.text.isEmpty() &&
+                binding.rgTcfprCuloare.checkedRadioButtonId != -1 &&
+                binding.rgTcfprSticla.checkedRadioButtonId != -1
+            ) {
+                calculateOutputValues()
+            }
+        }
+        binding.bTcfprCalculeaza.setOnClickListener {
+            if (binding.etTcfprLatime.text.isEmpty() || binding.etTcfprLungime.text.isEmpty() || binding.rgTcfprCuloare.checkedRadioButtonId == -1 || binding.rgTcfprSticla.checkedRadioButtonId == -1) {
+                if (context != null) {
+                    Toast.makeText(context, "Please fill in all input fields", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } else {
+                latime = binding.etTcfprLatime.text.toString().toDouble()
+                lungime = binding.etTcfprLungime.text.toString().toDouble()
+                calculateOutputValues()
+            }
+        }
+
+        return binding.root
+    }
+    private fun calculateOutputValues() {
+        val TreiCanateFixPlusRotobasculant = TreiCanateFixPlusRotobasculant(latime, lungime)
+        TreiCanateFixPlusRotobasculant.init {
+            val toc = BigDecimal(TreiCanateFixPlusRotobasculant.getToc() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val zf = BigDecimal(TreiCanateFixPlusRotobasculant.getZF() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val montant = BigDecimal(TreiCanateFixPlusRotobasculant.getMontant())
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val sticla = BigDecimal(TreiCanateFixPlusRotobasculant.getSticla() / 100000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+
+            val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), montant.toDouble(), sticla.toDouble())
+            val model: PriceViewModel by viewModels()
+            model.priceTreiCanateFixPlusRotobasculant.value = finalPrice
+
+            binding.tvTcfprOutput.text = "Toc=$toc\nZF=$zf\nMontant=$montant\nSticla=$sticla\nPrice = $finalPrice"
+            Log.d("PriceUnCanat", "Un canat = $finalPrice")
+        }
+    }
+
+    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double): Double {
+        val radioGroup: RadioGroup = binding.rgTcfprCuloare
+        val selectedId = radioGroup.checkedRadioButtonId
+        var priceToc = 0.0
+        var priceZf = 0.0
+        var pricemontant = 0.0
+
+        when (selectedId) {
+            R.id.rb_tcfpr_alb -> {
+                priceToc = toc * 34
+                priceZf = zf * 32
+                pricemontant = montant * 30
+            }
+            R.id.rb_tcfpr_color -> {
+                priceToc = toc * 51
+                priceZf = zf * 42
+                pricemontant = montant * 46
+            }
+            R.id.rb_tcfpr_alb_color -> {
+                priceToc = toc * 40
+                priceZf = zf * 40
+                pricemontant = montant * 40
+            }
+        }
+
+        val radioGroupSticla: RadioGroup = binding.rgTcfprSticla
+        val selectedIdSticla = radioGroupSticla.checkedRadioButtonId
+        var priceSticla = 0.0
+        when (selectedIdSticla) {
+            R.id.rb_tcfpr_f4_4s -> {
+                priceSticla = sticla * 220
+            }
+            R.id.rb_tcfpr_f4_crossfield -> {
+                priceSticla = sticla * 295
+            }
+        }
+
+        return priceToc + priceZf + pricemontant + priceSticla
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putDouble("latime", latime)
+        outState.putDouble("lungime", lungime)
+        outState.putInt("culoareId", binding.rgTcfprCuloare.checkedRadioButtonId)
+        outState.putInt("sticlaId", binding.rgTcfprSticla.checkedRadioButtonId)
     }
 
     companion object {

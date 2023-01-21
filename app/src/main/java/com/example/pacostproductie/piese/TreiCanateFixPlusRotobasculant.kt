@@ -27,7 +27,7 @@ class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
                 solid700DifRamaSticla =
                     dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
                 solid700DifAdaosZetMontatLaMijloc3canate =
-                    dataSnapshot.child("solid700DifAdaosZetMontatLaMijloc3canate")
+                    dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc3canate")
                         .getValue(Double::class.java)!!
                 solid700DifRamaZet =
                     dataSnapshot.child("solid700DifRamaZet").getValue(Double::class.java)!!

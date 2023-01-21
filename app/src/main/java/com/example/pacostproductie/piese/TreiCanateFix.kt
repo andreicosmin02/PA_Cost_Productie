@@ -25,7 +25,7 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
                 solid700DifRamaSticla =
                     dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
                 solid700DifAdaosZetMontatLaMijloc3canate =
-                    dataSnapshot.child("solid700DifAdaosZetMontatLaMijloc3canate")
+                    dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc3canate")
                         .getValue(Double::class.java)!!
 
 
@@ -55,6 +55,7 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
     fun getNrMontat(): Int {
         return 2
     }
+
     fun getSticla(): Double {
         val sticla = 2 * (((latime/3) - latime-solid700DifRamaSticla + solid700DifAdaosZetMontatLaMijloc3canate) * (lungime - solid700DifRamaSticla))
         return sticla
