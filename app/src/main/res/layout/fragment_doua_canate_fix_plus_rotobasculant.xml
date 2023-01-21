@@ -48,7 +48,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/et_dcpfr_lungime"
+                android:id="@+id/et_dcfpr_lungime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -135,7 +135,7 @@
 
 
             <Button
-                android:id="@+id/b__calculeaza"
+                android:id="@+id/b_dcfpr_calculeaza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Calculeaza" />

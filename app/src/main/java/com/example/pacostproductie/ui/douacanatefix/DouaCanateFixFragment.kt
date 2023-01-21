@@ -1,10 +1,22 @@
 package com.example.pacostproductie.ui.douacanatefix
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
+import com.example.pacostproductie.databinding.FragmentDouaCanateFixBinding
+import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
+import com.example.pacostproductie.piese.DouaCanateFix
+import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
+import com.example.pacostproductie.viewmodel.PriceViewModel
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -20,6 +32,11 @@ class DouaCanateFixFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var latime: Double = 0.0
+    private var lungime: Double = 0.0
+
+    private lateinit var binding: FragmentDouaCanateFixBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -28,10 +45,107 @@ class DouaCanateFixFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doua_canate_fix, container, false)
+        binding = FragmentDouaCanateFixBinding.inflate(layoutInflater)
+
+        if (savedInstanceState != null) {
+            latime = savedInstanceState.getDouble("latime")
+            lungime = savedInstanceState.getDouble("lungime")
+            binding.rgDcfCuloare.check(savedInstanceState.getInt("culoareId"))
+            binding.rgDcfSticla.check(savedInstanceState.getInt("sticlaId"))
+
+            binding.etDcfLatime.setText(latime.toString())
+            binding.etDcfLungime.setText(lungime.toString())
+            if (
+                !binding.etDcfLatime.text.isEmpty() &&
+                !binding.etDcfLungime.text.isEmpty() &&
+                binding.rgDcfCuloare.checkedRadioButtonId != -1 &&
+                binding.rgDcfSticla.checkedRadioButtonId != -1
+            ) {
+                calculateOutputValues()
+            }
+        }
+        binding.bDcfCalculeaza.setOnClickListener {
+            if (binding.etDcfLatime.text.isEmpty() || binding.etDcfLungime.text.isEmpty() || binding.rgDcfCuloare.checkedRadioButtonId == -1 || binding.rgDcfSticla.checkedRadioButtonId == -1) {
+                if (context != null) {
+                    Toast.makeText(context, "Please fill in all input fields", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } else {
+                latime = binding.etDcfLatime.text.toString().toDouble()
+                lungime = binding.etDcfLungime.text.toString().toDouble()
+                calculateOutputValues()
+            }
+        }
+
+        return binding.root
+    }
+
+    private fun calculateOutputValues() {
+        val DouaCanateFix = DouaCanateFix(latime, lungime)
+        DouaCanateFix.init {
+            val toc = BigDecimal(DouaCanateFix.getToc() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val zf = BigDecimal(DouaCanateFix.getZF() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val montant =  BigDecimal(DouaCanateFix.getMontant() / 1000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+            val sticla = BigDecimal(DouaCanateFix.getSticla() / 100000)
+                .setScale(2, RoundingMode.HALF_EVEN)
+
+            val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(),montant.toDouble(), sticla.toDouble() )
+            val model: PriceViewModel by viewModels()
+            model.priceDouaCanateFix.value = finalPrice
+
+            binding.tvDcfOutput.text = "Toc=$toc\nZF=$zf\nMontant=$montant\nSticla=$sticla\nPrice = $finalPrice"
+            Log.d("PriceUDouaCanateFix", "DouaCanateFix = $finalPrice")
+        }
+    }
+
+    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double): Double {
+        val radioGroup: RadioGroup = binding.rgDcfCuloare
+        val selectedId = radioGroup.checkedRadioButtonId
+        var priceToc = 0.0
+        var priceZf = 0.0
+
+        when (selectedId) {
+            R.id.rb_dcf_alb -> {
+                priceToc = toc * 34
+                priceZf = zf * 32
+            }
+            R.id.rb_dcf_color -> {
+                priceToc = toc * 51
+                priceZf = zf * 42
+            }
+            R.id.rb_dcf_alb_color -> {
+                priceToc = toc * 40
+                priceZf = zf * 40
+            }
+        }
+
+        var priceMontant = 0.0
+        priceMontant = montant * 62
+        val radioGroupSticla: RadioGroup = binding.rgDcfSticla
+        val selectedIdSticla = radioGroupSticla.checkedRadioButtonId
+        var priceSticla = 0.0
+        when (selectedIdSticla) {
+            R.id.rb_dcf_f4_4s -> {
+                priceSticla = sticla * 220
+            }
+            R.id.rb_dcf_f4_crossfield -> {
+                priceSticla = sticla * 295
+            }
+        }
+
+        return priceToc + priceZf + priceSticla + priceMontant
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putDouble("latime", latime)
+        outState.putDouble("lungime", lungime)
+        outState.putInt("culoareId", binding.rgDcfCuloare.checkedRadioButtonId)
+        outState.putInt("sticlaId", binding.rgDcfSticla.checkedRadioButtonId)
     }
 
     companion object {

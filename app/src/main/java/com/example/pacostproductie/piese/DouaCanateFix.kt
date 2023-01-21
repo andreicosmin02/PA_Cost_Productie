@@ -49,7 +49,7 @@ class DouaCanateFix(var latime: Double, var lungime: Double) {
         return montant
     }
 
-    fun getNrMontat(): Int {
+    fun getNrMontant(): Int {
         return 1
     }
 
