@@ -7,14 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
-import com.example.pacostproductie.databinding.FragmentDouaCanateRotativInversorBinding
 import com.example.pacostproductie.databinding.FragmentDouaCanateRotobasculantPlusRotativInversorBinding
-import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
-import com.example.pacostproductie.piese.DouaCanateRotativInversor
 import com.example.pacostproductie.piese.DouaCanateRotobasculantPlusRotativInversor
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -101,14 +96,12 @@ class DouaCanateRotobasculantPlusRotativInversorFragment : Fragment() {
             val invf= inv * NRinv
 
             val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble(),invf.toDouble(),fer.toDouble())
-            val model: PriceViewModel by viewModels()
-            model.priceUnCanatGeamRotobasculant.value = finalPrice
 
-            binding.tvDcrpriOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nInv=$invf\nFer=$fer\nPrice = $finalPrice"
+            binding.tvDcrpriOutput.text = "Toc = $toc ml\nZF = $zf ml\nSticla = $sticla m2\nInv = $invf ml\nFer = $fer ml\n\nPret = $finalPrice lei"
             Log.d("PriceDouaCanateRotobasculantPlusRotativInversor", "Doua Canate Rotativ Inversor = $finalPrice")
         }
     }
-    fun calculatePrice(toc: Double, zf: Double, sticla: Double,invf:Double,fer:Double): Double {
+    fun calculatePrice(toc: Double, zf: Double, sticla: Double,invf:Double,fer:Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgDcrpriCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -146,7 +139,8 @@ class DouaCanateRotobasculantPlusRotativInversorFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + priceSticla+ priceFer+ priceInv
+        return BigDecimal(priceToc + priceZf + priceSticla+ priceFer+ priceInv)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

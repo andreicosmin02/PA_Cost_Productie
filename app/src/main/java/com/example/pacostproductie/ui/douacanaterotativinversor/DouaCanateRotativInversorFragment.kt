@@ -10,10 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
 import com.example.pacostproductie.databinding.FragmentDouaCanateRotativInversorBinding
-import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
 import com.example.pacostproductie.piese.DouaCanateRotativInversor
-import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -96,17 +93,16 @@ class DouaCanateRotativInversorFragment : Fragment() {
                 .setScale(2, RoundingMode.HALF_EVEN)
             val fer=BigDecimal(douaCanateRotativInversor.getFer())
                 .setScale(2, RoundingMode.HALF_EVEN)
-            val invf=inv*NRinv
+            val invf = BigDecimal(inv.toDouble() * NRinv.toDouble())
+                .setScale(2, RoundingMode.HALF_EVEN)
 
-            val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble(),invf.toDouble(),fer.toDouble())
-            val model: PriceViewModel by viewModels()
-            model.priceUnCanatGeamRotobasculant.value = finalPrice
+            val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble(), invf.toDouble(), fer.toDouble())
 
-            binding.tvDcriOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nInv=$invf\nFer=$fer\nPrice = $finalPrice"
+            binding.tvDcriOutput.text = "Toc = $toc ml\nZF = $zf ml\nSticla = $sticla m2\nInv = $invf ml\nFer = $fer ml\n\nPret = $finalPrice lei"
             Log.d("PriceDouaCanateRotativInversor", "Doua Canate Rotativ Inversor = $finalPrice")
         }
     }
-    fun calculatePrice(toc: Double, zf: Double, sticla: Double,invf:Double,fer:Double): Double {
+    fun calculatePrice(toc: Double, zf: Double, sticla: Double,invf:Double,fer:Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgDcriCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -144,7 +140,8 @@ class DouaCanateRotativInversorFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + priceSticla+priceFer+priceInv
+        return BigDecimal(priceToc + priceZf + priceSticla+priceFer+priceInv)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

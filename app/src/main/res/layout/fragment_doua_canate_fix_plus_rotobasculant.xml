@@ -140,12 +140,22 @@
                 android:layout_height="wrap_content"
                 android:text="Calculeaza" />
 
-            <TextView
-                android:id="@+id/tv_dcfpr_output"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_dcfpr_output"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_dcfpr_output"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text=""
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

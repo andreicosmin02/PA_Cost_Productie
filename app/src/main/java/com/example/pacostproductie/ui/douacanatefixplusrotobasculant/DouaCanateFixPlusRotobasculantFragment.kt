@@ -10,10 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
 import com.example.pacostproductie.databinding.FragmentDouaCanateFixPlusRotobasculantBinding
-import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
 import com.example.pacostproductie.piese.DouaCanateFixPlusRotobasculant
-import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -99,16 +96,14 @@ class DouaCanateFixPlusRotobasculantFragment : Fragment() {
 
 
             val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), montant.toDouble(), sticla.toDouble(), fer.toDouble() )
-            val model: PriceViewModel by viewModels()
-            model.priceUnCanatGeamRotobasculant.value = finalPrice
 
-            binding.tvDcfprOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+            binding.tvDcfprOutput.text = "Toc = $toc ml\nZF = $zf ml\nSticla = $sticla m2\n\nPret = $finalPrice lei"
             Log.d("PriceUnCanat", "Un canat = $finalPrice")
         }
     }
 
 
-    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double, fer: Double): Double {
+    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double, fer: Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgDcfprCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -116,17 +111,17 @@ class DouaCanateFixPlusRotobasculantFragment : Fragment() {
         var pricemontant = 0.0
 
         when (selectedId) {
-            R.id.rb_tcfpr_alb -> {
+            R.id.rb_dcfpr_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
                 pricemontant = montant * 48
             }
-            R.id.rb_tcfpr_color -> {
+            R.id.rb_dcfpr_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
                 pricemontant = montant * 72
             }
-            R.id.rb_tcfpr_alb_color -> {
+            R.id.rb_dcfpr_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
                 pricemontant = montant * 55
@@ -146,7 +141,8 @@ class DouaCanateFixPlusRotobasculantFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + priceSticla + pricemontant + pricefer
+        return BigDecimal(priceToc + priceZf + priceSticla + pricemontant + pricefer)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

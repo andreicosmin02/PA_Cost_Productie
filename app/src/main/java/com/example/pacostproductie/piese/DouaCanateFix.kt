@@ -40,9 +40,7 @@ class DouaCanateFix(var latime: Double, var lungime: Double) {
         return toc
     }
 
-    fun getZF(): Double {
-        return 0.0
-    }
+
 
     fun getMontant(): Double {
         val montant = (1 + pierderigeneraltocZetMontant / 2) * (lungime - solid700DifTocMontant)

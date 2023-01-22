@@ -8,13 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
-import com.example.pacostproductie.databinding.FragmentTreiCanateFixBinding
 import com.example.pacostproductie.databinding.FragmentTreiCanateFixPlusRotobasculantBinding
-import com.example.pacostproductie.piese.TreiCanateFix
 import com.example.pacostproductie.piese.TreiCanateFixPlusRotobasculant
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -96,15 +92,13 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
                 .setScale(2, RoundingMode.HALF_EVEN)
 
             val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), montant.toDouble(), sticla.toDouble())
-            val model: PriceViewModel by viewModels()
-            model.priceTreiCanateFixPlusRotobasculant.value = finalPrice
 
-            binding.tvTcfprOutput.text = "Toc=$toc\nZF=$zf\nMontant=$montant\nSticla=$sticla\nPrice = $finalPrice"
+            binding.tvTcfprOutput.text = "Toc = $toc ml\nZF = $zf ml\nMontant = $montant ml\nSticla = $sticla m2\n\nPret = $finalPrice lei"
             Log.d("PriceUnCanat", "Un canat = $finalPrice")
         }
     }
 
-    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double): Double {
+    fun calculatePrice(toc: Double, zf: Double, montant: Double, sticla: Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgTcfprCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -141,7 +135,8 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + pricemontant + priceSticla
+        return BigDecimal(priceToc + priceZf + pricemontant + priceSticla)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

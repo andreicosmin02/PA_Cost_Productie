@@ -8,12 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
-import com.example.pacostproductie.databinding.ActivityMainBinding
 import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
 import com.example.pacostproductie.piese.UnCanatGeamRotobasculant
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -36,7 +33,6 @@ class UnCanatRotobasculantFragment : Fragment() {
     private var lungime: Double = 0.0
 
     private lateinit var binding: FragmentUnCanatRotobasculantBinding
-    private val priceViewModel: PriceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,14 +92,12 @@ class UnCanatRotobasculantFragment : Fragment() {
 
             val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
 
-            priceViewModel.priceUnCanatGeamRotobasculant.value = finalPrice
-
-            binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
+            binding.tvUcrOutput.text = "Toc = $toc ml\nZF = $zf ml\nSticla = $sticla m2\n\nPret = $finalPrice lei"
             Log.d("PriceUnCanat", "Un canat = $finalPrice")
         }
     }
 
-    fun calculatePrice(toc: Double, zf: Double, sticla: Double): Double {
+    fun calculatePrice(toc: Double, zf: Double, sticla: Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgUcrCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -136,7 +130,8 @@ class UnCanatRotobasculantFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + priceSticla
+        return BigDecimal(priceToc + priceZf + priceSticla)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.example.pacostproductie.R
 import com.example.pacostproductie.databinding.FragmentTreiCanateFixBinding
 import com.example.pacostproductie.piese.TreiCanateFix
-import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -92,15 +90,13 @@ class TreiCanateFixFragment : Fragment() {
                 .setScale(2, RoundingMode.HALF_EVEN)
 
             val finalPrice = calculatePrice(toc.toDouble(), montant.toDouble(), sticla.toDouble())
-            val model: PriceViewModel by viewModels()
-            model.priceTreiCanateFix.value = finalPrice
 
-            binding.tvTcfOutput.text = "Toc=$toc\nMontant=$montant\nSticla=$sticla\nPrice = $finalPrice"
+            binding.tvTcfOutput.text = "Toc = $toc ml\nMontant = $montant ml\nSticla = $sticla m2\n\nPret = $finalPrice lei"
             Log.d("PriceUnCanat", "Un canat = $finalPrice")
         }
     }
 
-    fun calculatePrice(toc: Double, montant: Double, sticla: Double): Double {
+    fun calculatePrice(toc: Double, montant: Double, sticla: Double): BigDecimal? {
         val radioGroup: RadioGroup = binding.rgTcfCuloare
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
@@ -132,8 +128,8 @@ class TreiCanateFixFragment : Fragment() {
                 priceSticla = sticla * 295
             }
         }
-
-        return priceToc + pricemontant + priceSticla
+        return BigDecimal(priceToc + pricemontant + priceSticla)
+            .setScale(2, RoundingMode.HALF_EVEN)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -8,14 +8,6 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
 
         <item
             android:id="@+id/nav_uncanatrotobasculant"
@@ -54,7 +46,7 @@
         <item
             android:id="@+id/nav_treicanatefixplusrotobasculant"
             android:icon="@drawable/ic_baseline_window_24"
-            android:title="Trei Canate Fix Plus Rotobasculant"
+            android:title="@string/trei_canate_fix_plus_rotobasculant"
             />
     </group>
 </menu>
