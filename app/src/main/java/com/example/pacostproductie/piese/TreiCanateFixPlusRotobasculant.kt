@@ -11,7 +11,7 @@ class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
     val ref = database.getReference("Piese/treiCanateFixPlusRotobasculant")
 
     var pierderigeneraltocZetMontant: Double = 0.0
-    var solid700DifAdaosZetMontatLaMijloc3canate: Double = 0.0
+    var solid700DifAdaosZetMontantLaMijloc3canate: Double = 0.0
     var solid700DifTocMontant: Double = 0.0
     var solid700DifRamaZet: Double = 0.0
     var solid700DifRamaSticla: Double = 0.0
@@ -26,7 +26,7 @@ class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
                     dataSnapshot.child("solid700DifTocMontant").getValue(Double::class.java)!!
                 solid700DifRamaSticla =
                     dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
-                solid700DifAdaosZetMontatLaMijloc3canate =
+                solid700DifAdaosZetMontantLaMijloc3canate =
                     dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc3canate")
                         .getValue(Double::class.java)!!
                 solid700DifRamaZet =
@@ -48,7 +48,7 @@ class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
                 )
                 Log.d(
                     "treiCanateFixPlusRotobasculant",
-                    "solid700DifAdaosZetMontatLaMijloc3canate: $solid700DifAdaosZetMontatLaMijloc3canate"
+                    "solid700DifAdaosZetMontatLaMijloc3canate: $solid700DifAdaosZetMontantLaMijloc3canate"
                 )
                 Log.d("treiCanateFixPlusRotobasculant", "solid700DifRamaZet: $solid700DifRamaZet")
                 Log.d(
@@ -74,15 +74,15 @@ class TreiCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
         return montant
     }
 
-    fun getNrMontat(): Int {
+    fun getNrMontant(): Int {
         return 2
     }
     fun getZF(): Double {
-        val zf = (2 + pierderigeneraltocZetMontant) * ((latime/2 - solid700DifRamaZet + solid700DifAdaosZetMontatLaMijloc3canate) + (lungime - solid700DifRamaZet))
+        val zf = (2 + pierderigeneraltocZetMontant) * ((latime/2 - solid700DifRamaZet + solid700DifAdaosZetMontantLaMijloc3canate) + (lungime - solid700DifRamaZet))
         return zf
     }
     fun getSticla(): Double {
-        val sticla = 2 * (((latime/3) - latime-solid700DifRamaSticla + solid700DifAdaosZetMontatLaMijloc3canate) * (lungime - solid700DifRamaSticla))+(latime/3-latime-solid700DifRamaSticla+solid700DifAdaosZetMontatLaMijloc3canate-solid700DifZetSticla)*(lungime-solid700DifRamaSticla-solid700DifZetSticla)
+        val sticla = -2 * ((latime / 3 - latime - solid700DifRamaSticla + solid700DifAdaosZetMontantLaMijloc3canate) * (lungime - solid700DifRamaSticla)) + (latime / 3 - latime - solid700DifRamaSticla + solid700DifAdaosZetMontantLaMijloc3canate - solid700DifZetSticla) * (lungime - solid700DifRamaSticla - solid700DifZetSticla)
         return sticla
     }
 }

@@ -13,7 +13,7 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
     var pierderigeneraltocZetMontant: Double = 0.0
     var solid700DifTocMontant: Double = 0.0
     var solid700DifRamaSticla: Double = 0.0
-    var solid700DifAdaosZetMontatLaMijloc3canate: Double = 0.0
+    var solid700DifAdaosZetMontantLaMijloc3canate: Double = 0.0
 
     fun init(callback: () -> Unit) {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -24,7 +24,7 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
                     dataSnapshot.child("solid700DifTocMontant").getValue(Double::class.java)!!
                 solid700DifRamaSticla =
                     dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
-                solid700DifAdaosZetMontatLaMijloc3canate =
+                solid700DifAdaosZetMontantLaMijloc3canate =
                     dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc3canate")
                         .getValue(Double::class.java)!!
 
@@ -32,7 +32,7 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
                 Log.d("treiCanateFix", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")
                 Log.d("treiCanateFix", "solid700DifTocMontant: $solid700DifTocMontant")
                 Log.d("treiCanateFix", "solid700DifRamaSticla: $solid700DifRamaSticla")
-                Log.d("treiCanateFix", "solid700DifAdaosZetMontatLaMijloc3canate: $solid700DifAdaosZetMontatLaMijloc3canate")
+                Log.d("treiCanateFix", "solid700DifAdaosZetMontatLaMijloc3canate: $solid700DifAdaosZetMontantLaMijloc3canate")
                 callback()
             }
 
@@ -52,16 +52,12 @@ class TreiCanateFix(var latime: Double, var lungime: Double) {
         return montant
     }
 
-    fun getNrMontat(): Int {
+    fun getNrMontant(): Int {
         return 2
     }
 
     fun getSticla(): Double {
-        val sticla = 2 * (((latime/3) - latime-solid700DifRamaSticla + solid700DifAdaosZetMontatLaMijloc3canate) * (lungime - solid700DifRamaSticla))
+        val sticla = -2 * (((latime/3) - latime-solid700DifRamaSticla + solid700DifAdaosZetMontantLaMijloc3canate) * (lungime - solid700DifRamaSticla))
         return sticla
-    }
-
-    fun Feronerie(): Int {
-        return 0
     }
 }

@@ -28,7 +28,7 @@ class DouaCanateFixPlusRotobasculant(var latime: Double, var lungime: Double) {
                 solid700DifAdaosZetMontantLaMijloc = dataSnapshot.child("solid700DifAdaosZetMontantLaMijloc").getValue(Double::class.java)!!
                 solid700DifRamaSticla = dataSnapshot.child("solid700DifRamaSticla").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
-//                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
+                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
 
 
                 Log.d("douaCanateFixPlusRotobasculant", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")

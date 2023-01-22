@@ -24,14 +24,16 @@ class DouaCanateRotativInversor(var latime: Double, var lungime: Double) {
                 solid700DifRamaZet = dataSnapshot.child("solid700DifRamaZet").getValue(Double::class.java)!!
                 solid700DifAdaosZetInvLaMijloc = dataSnapshot.child("solid700DifAdaosZetInvLaMijloc").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
-//                rotativInversor = dataSnapshot.child("rotativInversor").getValue(Double::class.java)!!
+                rotativ = dataSnapshot.child("rotativ").getValue(Double::class.java)!!
+                inversor = dataSnapshot.child("inversor").getValue(Double::class.java)!!
 
                 Log.d("DouaCanateRotativInversor", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")
                 Log.d("DouaCanateRotativInversor", "solid700DifTocInv: $solid700DifTocInv")
                 Log.d("DouaCanateRotativInversor", "solid700DifRamaZet: $solid700DifRamaZet")
                 Log.d("DouaCanateRotativInversor", "solid700DifAdaosZetInvLaMijloc: $solid700DifAdaosZetInvLaMijloc")
                 Log.d("DouaCanateRotativInversor", "solid700DifZetSticla: $solid700DifZetSticla")
-//                Log.d("DouaCanateRotativInversor", "rotativInversor: $rotativInversor")
+                Log.d("DouaCanateRotativInversor", "rotativ: $rotativ")
+                Log.d("DouaCanateRotativInversor", "inversor: $inversor")
 
                 callback()
             }
@@ -66,7 +68,7 @@ class DouaCanateRotativInversor(var latime: Double, var lungime: Double) {
     }
 
     fun getFer(): Double {
-        val fer = 2 * rotativ
+        val fer = 2 * rotativ - inversor
         return fer
     }
 }

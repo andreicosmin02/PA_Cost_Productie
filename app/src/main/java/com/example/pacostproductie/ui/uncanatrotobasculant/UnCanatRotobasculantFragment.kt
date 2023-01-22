@@ -36,6 +36,7 @@ class UnCanatRotobasculantFragment : Fragment() {
     private var lungime: Double = 0.0
 
     private lateinit var binding: FragmentUnCanatRotobasculantBinding
+    private val priceViewModel: PriceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,8 +95,8 @@ class UnCanatRotobasculantFragment : Fragment() {
                 .setScale(2, RoundingMode.HALF_EVEN)
 
             val finalPrice = calculatePrice(toc.toDouble(), zf.toDouble(), sticla.toDouble())
-            val model: PriceViewModel by viewModels()
-            model.priceUnCanatGeamRotobasculant.value = finalPrice
+
+            priceViewModel.priceUnCanatGeamRotobasculant.value = finalPrice
 
             binding.tvUcrOutput.text = "Toc=$toc\nZF=$zf\nSticla=$sticla\nPrice = $finalPrice"
             Log.d("PriceUnCanat", "Un canat = $finalPrice")

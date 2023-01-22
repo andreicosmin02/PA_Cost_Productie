@@ -13,6 +13,7 @@ import com.example.pacostproductie.databinding.FragmentDouaCanateRotativInversor
 import com.example.pacostproductie.databinding.FragmentDouaCanateRotobasculantPlusRotativInversorBinding
 import com.example.pacostproductie.databinding.FragmentUnCanatRotobasculantBinding
 import com.example.pacostproductie.piese.DouaCanateRotativInversor
+import com.example.pacostproductie.piese.DouaCanateRotobasculantPlusRotativInversor
 import com.example.pacostproductie.viewmodel.PriceViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -83,7 +84,7 @@ class DouaCanateRotobasculantPlusRotativInversorFragment : Fragment() {
     }
 
     private fun calculateOutputValues() {
-        val douaCanateRotobasculantPlusRotativInversor = DouaCanateRotativInversor(latime, lungime)
+        val douaCanateRotobasculantPlusRotativInversor = DouaCanateRotobasculantPlusRotativInversor(latime, lungime)
         douaCanateRotobasculantPlusRotativInversor.init {
             val toc = BigDecimal(douaCanateRotobasculantPlusRotativInversor.getToc() / 1000)
                 .setScale(2, RoundingMode.HALF_EVEN)
@@ -112,21 +113,24 @@ class DouaCanateRotobasculantPlusRotativInversorFragment : Fragment() {
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
         var priceZf = 0.0
-        val priceInv=0.0
-        val priceFer=0.0
+        var priceInv=0.0
+        var priceFer=0.0
 
         when (selectedId) {
             R.id.rb_dcrpri_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
+                priceInv = invf * 23
             }
             R.id.rb_dcrpri_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
+                priceInv = invf * 34
             }
             R.id.rb_dcrpri_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
+                priceInv = invf * 31
             }
         }
 

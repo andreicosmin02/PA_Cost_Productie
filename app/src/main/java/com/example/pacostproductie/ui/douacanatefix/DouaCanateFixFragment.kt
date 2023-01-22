@@ -108,24 +108,29 @@ class DouaCanateFixFragment : Fragment() {
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
         var priceZf = 0.0
+        var priceMontant = 0.0
 
         when (selectedId) {
             R.id.rb_dcf_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
+                priceMontant = montant * 48
             }
             R.id.rb_dcf_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
+                priceMontant = montant * 72
+
             }
             R.id.rb_dcf_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
+                priceMontant = montant * 55
+
             }
         }
 
-        var priceMontant = 0.0
-        priceMontant = montant * 62
+
         val radioGroupSticla: RadioGroup = binding.rgDcfSticla
         val selectedIdSticla = radioGroupSticla.checkedRadioButtonId
         var priceSticla = 0.0

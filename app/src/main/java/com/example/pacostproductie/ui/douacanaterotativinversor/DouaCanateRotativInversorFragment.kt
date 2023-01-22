@@ -111,21 +111,24 @@ class DouaCanateRotativInversorFragment : Fragment() {
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
         var priceZf = 0.0
-        val priceInv=0.0
-        val priceFer=0.0
+        var priceInv = 0.0
+        var priceFer = fer
 
         when (selectedId) {
             R.id.rb_dcri_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
+                priceInv = invf * 23
             }
             R.id.rb_dcri_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
+                priceInv = invf * 34
             }
             R.id.rb_dcri_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
+                priceInv = invf * 31
             }
         }
 

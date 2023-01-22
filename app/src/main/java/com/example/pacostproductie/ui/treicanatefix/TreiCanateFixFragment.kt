@@ -86,7 +86,7 @@ class TreiCanateFixFragment : Fragment() {
         TreiCanateFix.init {
             val toc = BigDecimal(TreiCanateFix.getToc() / 1000)
                 .setScale(2, RoundingMode.HALF_EVEN)
-            val montant = BigDecimal(TreiCanateFix.getMontant())
+            val montant = BigDecimal(TreiCanateFix.getMontant() / 1000)
                 .setScale(2, RoundingMode.HALF_EVEN)
             val sticla = BigDecimal(TreiCanateFix.getSticla() / 100000)
                 .setScale(2, RoundingMode.HALF_EVEN)
@@ -109,15 +109,15 @@ class TreiCanateFixFragment : Fragment() {
         when (selectedId) {
             R.id.rb_tcf_alb -> {
                 priceToc = toc * 34
-                pricemontant = montant * 30
+                pricemontant = montant * 48
             }
             R.id.rb_tcf_color -> {
                 priceToc = toc * 51
-                pricemontant = montant * 46
+                pricemontant = montant * 72
             }
             R.id.rb_tcf_alb_color -> {
                 priceToc = toc * 40
-                pricemontant = montant * 40
+                pricemontant = montant * 55
             }
         }
 

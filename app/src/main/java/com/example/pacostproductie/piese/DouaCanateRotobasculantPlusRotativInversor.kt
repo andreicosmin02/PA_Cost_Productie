@@ -29,8 +29,8 @@ class DouaCanateRotobasculantPlusRotativInversor(var latime: Double, var lungime
                 solid700DifRamaZet = dataSnapshot.child("solid700DifRamaZet").getValue(Double::class.java)!!
                 solid700DifZetSticla = dataSnapshot.child("solid700DifZetSticla").getValue(Double::class.java)!!
                 solid700DifAdaosZetInvLaMijloc = dataSnapshot.child("solid700DifAdaosZetInvLaMijloc").getValue(Double::class.java)!!
-//                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
-//                inversor = dataSnapshot.child("inversor").getValue(Double::class.java)!!
+                rotobasculant = dataSnapshot.child("rotobasculant").getValue(Double::class.java)!!
+                inversor = dataSnapshot.child("inversor").getValue(Double::class.java)!!
 
 
                 Log.d("douaCanateRotobasculantPlusRotativInversor", "pierderigeneraltocZetMontant: $pierderigeneraltocZetMontant")
@@ -74,7 +74,7 @@ class DouaCanateRotobasculantPlusRotativInversor(var latime: Double, var lungime
     }
 
     fun getFer(): Double {
-        val fer = rotobasculant-inversor
+        val fer = rotobasculant - inversor
         return fer
     }
 }

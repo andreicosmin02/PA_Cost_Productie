@@ -113,26 +113,27 @@ class DouaCanateFixPlusRotobasculantFragment : Fragment() {
         val selectedId = radioGroup.checkedRadioButtonId
         var priceToc = 0.0
         var priceZf = 0.0
+        var pricemontant = 0.0
 
         when (selectedId) {
-            R.id.rb_dcfpr_alb -> {
+            R.id.rb_tcfpr_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
+                pricemontant = montant * 48
             }
-            R.id.rb_dcfpr_color -> {
+            R.id.rb_tcfpr_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
+                pricemontant = montant * 72
             }
-            R.id.rb_dcfpr_alb_color -> {
+            R.id.rb_tcfpr_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
+                pricemontant = montant * 55
             }
         }
 
-        var priceMontant = 0.0
-        priceMontant = montant * 45
-        var fer = 0.0
-        var pricefer = fer * 65
+        var pricefer = fer * 21
         val radioGroupSticla: RadioGroup = binding.rgDcfprSticla
         val selectedIdSticla = radioGroupSticla.checkedRadioButtonId
         var priceSticla = 0.0
@@ -145,7 +146,7 @@ class DouaCanateFixPlusRotobasculantFragment : Fragment() {
             }
         }
 
-        return priceToc + priceZf + priceSticla + priceMontant
+        return priceToc + priceZf + priceSticla + pricemontant + pricefer
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

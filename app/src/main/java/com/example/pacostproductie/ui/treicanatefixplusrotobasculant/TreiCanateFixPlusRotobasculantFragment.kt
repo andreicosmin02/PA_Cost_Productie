@@ -90,7 +90,7 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
                 .setScale(2, RoundingMode.HALF_EVEN)
             val zf = BigDecimal(TreiCanateFixPlusRotobasculant.getZF() / 1000)
                 .setScale(2, RoundingMode.HALF_EVEN)
-            val montant = BigDecimal(TreiCanateFixPlusRotobasculant.getMontant())
+            val montant = BigDecimal(TreiCanateFixPlusRotobasculant.getMontant() / 500)
                 .setScale(2, RoundingMode.HALF_EVEN)
             val sticla = BigDecimal(TreiCanateFixPlusRotobasculant.getSticla() / 100000)
                 .setScale(2, RoundingMode.HALF_EVEN)
@@ -115,17 +115,17 @@ class TreiCanateFixPlusRotobasculantFragment : Fragment() {
             R.id.rb_tcfpr_alb -> {
                 priceToc = toc * 34
                 priceZf = zf * 32
-                pricemontant = montant * 30
+                pricemontant = montant * 48
             }
             R.id.rb_tcfpr_color -> {
                 priceToc = toc * 51
                 priceZf = zf * 42
-                pricemontant = montant * 46
+                pricemontant = montant * 72
             }
             R.id.rb_tcfpr_alb_color -> {
                 priceToc = toc * 40
                 priceZf = zf * 40
-                pricemontant = montant * 40
+                pricemontant = montant * 55
             }
         }
 
