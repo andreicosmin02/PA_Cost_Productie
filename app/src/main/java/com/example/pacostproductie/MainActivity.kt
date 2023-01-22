@@ -45,12 +45,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         // Bottom right button
-        binding.appBarMain.fab.setOnClickListener {
-            navController.navigate(R.id.nav_home, null, NavOptions.Builder()
-                .setPopUpTo(R.id.nav_home, true)
-                .build()
-            )
-        }
+//        binding.appBarMain.fab.setOnClickListener {
+//            navController.navigate(R.id.nav_home, null, NavOptions.Builder()
+//                .setPopUpTo(R.id.nav_home, true)
+//                .build()
+//            )
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

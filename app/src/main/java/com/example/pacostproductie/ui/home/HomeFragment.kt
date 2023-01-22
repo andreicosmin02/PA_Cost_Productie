@@ -24,32 +24,8 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//
-//        val textView: TextView = binding.textHome
-//        priceViewModel.priceUnCanatGeamRotobasculant.observe(viewLifecycleOwner) {
-//            val finalPrice = priceViewModel.priceUnCanatGeamRotobasculant.value!! +
-//                    priceViewModel.priceDouaCanateFix.value!! +
-//                    priceViewModel.priceDouaCanateRotativInversor.value!! +
-//                    priceViewModel.priceDouaCanateRotobasculantPlusRotativInversor.value!! +
-//                    priceViewModel.priceDouaCanateFixPlusRotobasculant.value!! +
-//                    priceViewModel.priceTreiCanateFix.value!! +
-//                    priceViewModel.priceTreiCanateFixPlusRotobasculant.value!!
-//            textView.text = "UnCanatGeamRotobasculant: ${priceViewModel.priceUnCanatGeamRotobasculant.value}\n" +
-//                    "DouaCanateFix: ${priceViewModel.priceDouaCanateFix.value}\n" +
-//                    "DouaCanateRotativInversor: ${priceViewModel.priceDouaCanateRotativInversor.value}\n" +
-//                    "DouaCanateRotobasculantPlusRotativInversor: ${priceViewModel.priceDouaCanateRotobasculantPlusRotativInversor.value}\n" +
-//                    "DouaCanateFixPlusRotobasculant: ${priceViewModel.priceDouaCanateFixPlusRotobasculant.value}\n" +
-//                    "TreiCanateFix: ${priceViewModel.priceTreiCanateFix.value}\n" +
-//                    "TreiCanateFixPlusRotobasculant: ${priceViewModel.priceTreiCanateFixPlusRotobasculant.value}\n" +
-//                    "Final Price: $finalPrice"
-//
-//            Log.d("PriceHome", "Home = $finalPrice")
-//        }
+
         val textView: TextView = binding.textHome
-        priceViewModel.priceUnCanatGeamRotobasculant.observe(viewLifecycleOwner) {
-            textView.text = "UnCanatGeamRotobasculant: ${priceViewModel.priceUnCanatGeamRotobasculant.value}"
-            Log.d("PriceHome", "Home = ${priceViewModel.priceUnCanatGeamRotobasculant.value}")
-        }
         return root
     }
 
